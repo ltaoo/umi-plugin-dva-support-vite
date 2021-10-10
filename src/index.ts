@@ -134,6 +134,14 @@ app.model({ namespace: '${basename(path, extname(path))}', ...Model${lodash.uppe
           `.trim();
             })
             .join('\r\n'),
+            ReplaceModels: models
+            .map((path, index) => {
+              // prettier-ignore
+              return `
+app.replaceModel({ namespace: '${basename(path, extname(path))}', ...Model${lodash.upperFirst(lodash.camelCase(basename(path, extname(path))))}${index} });
+          `.trim();
+            })
+            .join('\r\n'),
           // use esm version
           dvaLoadingPkgPath: winPath(
             require.resolve('dva-loading/dist/index.esm.js'),
